@@ -12,6 +12,7 @@ import {
   faSignOut,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import Button from '~/components/Button';
@@ -19,6 +20,7 @@ import Menu from '~/components/Popper/Menu';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
+import routesConfig from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -29,6 +31,56 @@ const MENU_ITEMS = [
     children: {
       title: 'Language',
       data: [
+        {
+          type: 'language',
+          code: 'en',
+          title: 'English',
+        },
+        {
+          type: 'language',
+          code: 'vi',
+          title: 'Tiếng Việt',
+        },
+        {
+          type: 'language',
+          code: 'en',
+          title: 'English',
+        },
+        {
+          type: 'language',
+          code: 'vi',
+          title: 'Tiếng Việt',
+        },
+        {
+          type: 'language',
+          code: 'en',
+          title: 'English',
+        },
+        {
+          type: 'language',
+          code: 'vi',
+          title: 'Tiếng Việt',
+        },
+        {
+          type: 'language',
+          code: 'en',
+          title: 'English',
+        },
+        {
+          type: 'language',
+          code: 'vi',
+          title: 'Tiếng Việt',
+        },
+        {
+          type: 'language',
+          code: 'en',
+          title: 'English',
+        },
+        {
+          type: 'language',
+          code: 'vi',
+          title: 'Tiếng Việt',
+        },
         {
           type: 'language',
           code: 'en',
@@ -93,7 +145,9 @@ function Header() {
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <img src={images.logo} alt="Tiktok" />
+        <Link to={routesConfig.home} className={cx('logo-link')}>
+          <img src={images.logo} alt="Tiktok" />
+        </Link>
 
         <Search />
 
