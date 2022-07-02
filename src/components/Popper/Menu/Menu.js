@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import styles from './Menu.module.scss';
-import { Wrapper as PopperWraper } from '~/components/Popper';
+import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
 import { useState } from 'react';
 import Header from './Header';
@@ -35,6 +35,24 @@ function Menu({ items = [], children, hideOnClick = false, onChange = defaultFn 
     });
   };
 
+  const handleBack = () => {
+    setHistory((prev) => prev.slice(0, history.length - 1));
+  };
+
+  const renderResults = (attrs) => (
+    <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
+      <PopperWrapper className={cx('menu-popper')}>
+        {history.length > 1 && <Header title={current.title || 'Language'} onBack={handleBack} />}
+        <div className={cx('menu-body')}>{renderItems()}</div>
+      </PopperWrapper>
+    </div>
+  );
+
+  // Reset menu when hide
+  const handleReset = () => {
+    setHistory((prev) => prev.slice(0, 1));
+  };
+
   return (
     <Tippy
       interactive
@@ -42,22 +60,8 @@ function Menu({ items = [], children, hideOnClick = false, onChange = defaultFn 
       offset={[12, 8]}
       hideOnClick={hideOnClick}
       placement="bottom-end"
-      onHide={() => setHistory((prev) => prev.slice(0, 1))}
-      render={(attrs) => (
-        <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
-          <PopperWraper className={cx('menu-popper')}>
-            {history.length > 1 && (
-              <Header
-                title={current.title || 'Language'}
-                onBack={() => {
-                  setHistory((prev) => prev.slice(0, history.length - 1));
-                }}
-              />
-            )}
-            <div className={cx('menu-body')}>{renderItems()}</div>
-          </PopperWraper>
-        </div>
-      )}
+      onHide={handleReset}
+      render={renderResults}
     >
       {children}
     </Tippy>
